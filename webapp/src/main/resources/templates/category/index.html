@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Category</title>
+</head>
+
+<body>
+<div th:insert="fragments/header :: header"></div>
+
+<div class="container">
+    <a type="button" href="/categories/add"
+       class="btn btn-success float-right">Add Category</a>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                <thead>
+                <tr>
+                    <th scope="col"> ID</th>
+                    <th scope="col">Name</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="category: ${categories}">
+                    <td th:text="${category.id}"> </td>
+                    <td th:text="${category.name}"> </td>
+                    <td><a th:href="@{/categories/delete/{id}(id=${category.id})}" type="button" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div th:insert="fragments/footer :: footer"></div>
+
+</body>
+</html>
