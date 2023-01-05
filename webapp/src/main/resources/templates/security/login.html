@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login</title>
+</head>
+
+<body>
+<div th:insert="fragments/header :: header"></div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+        <form class="card" th:action="@{/login}" th:object="${user}" method="POST">
+            <div class="card-body">
+        <h1 class="text-center">Login</h1>
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                <span th:text="${session.error}" th:unless="${session == null}"></span>
+            </div>
+            <div class="alert alert-success" role="alert" th:if="${param.register}">
+                You successfully registered, you can log in.
+            </div>
+
+            <div class="form-outline mb-4">
+                <label class="form-label" for="username" >Username</label>
+                <input type="text" id="username" class="form-control" name="username" />
+
+            </div>
+
+            <div class="form-outline mb-4">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" class="form-control" name="password" />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+
+<div th:insert="fragments/footer :: footer"></div>
+
+</body>
+</html>
