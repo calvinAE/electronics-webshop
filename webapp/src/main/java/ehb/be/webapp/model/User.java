@@ -3,12 +3,15 @@ package ehb.be.webapp.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,21 +29,28 @@ public class User implements UserDetails {
     private String email;
     private String lastName;
     private String password;
+
     private String role;
 
+    @OneToOne
+    private Cart cart;
 
-    public User(String email, String password, String firstName, String lastName, List<GrantedAuthority> authorities) {
+
+    public User(String email, String password, String firstName, String lastName, String role) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role = role;
 
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(role));
+        return list;
     }
 
     public String getUsername() {
