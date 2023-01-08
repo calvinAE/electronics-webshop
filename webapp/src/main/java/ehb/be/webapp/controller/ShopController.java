@@ -4,12 +4,14 @@ import ehb.be.webapp.repository.CategoryRepository;
 import ehb.be.webapp.repository.ProductRepository;
 import ehb.be.webapp.model.Category;
 import ehb.be.webapp.model.Product;
+import ehb.be.webapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -21,6 +23,9 @@ public class ShopController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    ProductService productService;
 
     @ModelAttribute("products")
     public Iterable<Product> getAllProd(){
@@ -42,8 +47,16 @@ public class ShopController {
     public Category getCategory(){
         return new Category();
     }
+
+
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String index(){
+    public String index(String keyword, Model model){
+        if(keyword != null) {
+            model.addAttribute("products",productService.filterByKeyword(keyword));
+            System.out.println(productService.filterByKeyword(keyword).toString());
+        }else {
+            model.addAttribute("products",productRepository.findAll());
+        }
         return "/products/index";
     }
 
