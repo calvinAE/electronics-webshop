@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor(onConstructor = @__({@Autowired}))
 public class UserService {
 

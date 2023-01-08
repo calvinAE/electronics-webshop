@@ -53,7 +53,6 @@ public class ShopController {
     public String index(String keyword, Model model){
         if(keyword != null) {
             model.addAttribute("products",productService.filterByKeyword(keyword));
-            System.out.println(productService.filterByKeyword(keyword).toString());
         }else {
             model.addAttribute("products",productRepository.findAll());
         }
