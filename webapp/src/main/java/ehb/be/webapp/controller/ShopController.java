@@ -84,7 +84,7 @@ public class ShopController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addProduct(Product p, BindingResult result){
         productRepository.save(p);
-        return "redirect:/";
+        return "redirect:/products";
     }
 
     //Show detail pages
