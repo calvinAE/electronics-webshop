@@ -50,11 +50,19 @@ public class ShopController {
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String index(String keyword, Model model){
+    public String index(String keyword,String category, Model model){
+        System.out.println(category);
+        //Filter by search
         if(keyword != null) {
             model.addAttribute("products",productService.filterByKeyword(keyword));
         }else {
-            model.addAttribute("products",productRepository.findAll());
+            if(category != null){
+                //Filter by category
+                model.addAttribute("products",productRepository.findByCategory(category));
+            } else{
+                //Don't filter
+                model.addAttribute("products",productRepository.findAll());
+            }
         }
         return "/products/index";
     }
