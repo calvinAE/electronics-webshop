@@ -1,8 +1,11 @@
 package ehb.be.webapp.security;
 
+import ehb.be.webapp.service.CustomUserDetailsService;
+import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -15,6 +18,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class CustomSecurityConfig {
 
 
+    @Resource
+    private CustomUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -32,6 +37,14 @@ public class CustomSecurityConfig {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET"));
 
         return http.build();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
 
