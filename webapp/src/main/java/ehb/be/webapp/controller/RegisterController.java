@@ -2,6 +2,7 @@ package ehb.be.webapp.controller;
 
 import ehb.be.webapp.model.UserDTO;
 import ehb.be.webapp.model.User;
+import ehb.be.webapp.repository.UserRepository;
 import ehb.be.webapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.web.context.request.WebRequest;
 public class RegisterController {
 
     private final UserService userService;
+    @Autowired
+    private final UserRepository userRepository;
 
 
     @GetMapping("/register")
@@ -35,7 +38,11 @@ public class RegisterController {
             Errors errors) {
 
         try {
-            User registered = userService.registerNewUserAccount(user);
+            if(userRepository.findByUsername(user.getUsername()) == null){
+                User registered = userService.registerNewUserAccount(user);
+            } else {
+                String error = "User already exists!";
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
