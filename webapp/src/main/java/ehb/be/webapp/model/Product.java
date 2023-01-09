@@ -1,12 +1,13 @@
 package ehb.be.webapp.model;
 
 import jakarta.persistence.*;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.hibernate.annotations.Type;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-import java.util.Arrays;
-
-
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Entity
 public class Product {
 
@@ -15,14 +16,11 @@ public class Product {
     private int id;
     private String name;
     private String image;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name= "category_id", nullable = false)
     private Category category;
     private String description;
     private double price;
-
-    public Product() {
-
-    }
 
     public int getId() {
         return id;
