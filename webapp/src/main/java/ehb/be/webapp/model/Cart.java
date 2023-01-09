@@ -15,7 +15,7 @@ import java.util.*;
 public class Cart {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private double price;
@@ -25,7 +25,7 @@ public class Cart {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER )
     private Set<CartItem> items = new HashSet<CartItem>();
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER )
+    @OneToOne(fetch = FetchType.EAGER )
     private User user;
 
 }
