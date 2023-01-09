@@ -10,13 +10,14 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-4">
-      <form class="card" th:action="@{/products/add}" th:object="${p}" method="post">
+      <form class="card mt-5" th:action="@{/products/add}" th:object="${p}" method="post">
         <div class="card-body">
-          <h5 class="card-title" th:text="${detail.get.name}"></h5>
-          <img th:src="${'data:image/jpeg;charset=utf-8;base64,' + detail.get.image}" alt="">
+          <h5 class="card-title text-center" th:text="${detail.get.name}"></h5>
+          <img class="card-img-top m-1 m-auto" style="max-height:220px; max-width: fit-content"  th:src="${detail.get.image}" alt="">
           <h6 class="card-subtitle mb-2 text-muted" th:text="${detail.get.category.name}"></h6>
           <p class="card-text" th:text="${detail.get.description}"></p>
-          <small class="card-link" th:text="${#numbers.formatCurrency(detail.get.price)}">€</small>
+          <small class="card-link" th:text="${#numbers.formatCurrency(detail.get.price)}">€</small><br>
+
           <button type="submit" class="btn btn-primary">Add to cart</button>
           <a th:href="@{/products/delete/{id}(id=${detail.get().id})}" type="button" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
         </div>
