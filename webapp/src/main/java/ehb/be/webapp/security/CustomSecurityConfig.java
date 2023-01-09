@@ -24,6 +24,7 @@ public class CustomSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .authenticationProvider(authProvider())
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/products","/categories","/register","/registration").permitAll()
                         .anyRequest().authenticated()
