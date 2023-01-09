@@ -31,7 +31,7 @@
 
     <ul sec:authorize="isAuthenticated()"  class="navbar-nav ml-auto">
       <li  class="nav-item" style="margin-right: 10px;">
-        <a class="nav-link" th:href="@{/login}">Cart <i class="bi bi-cart"></i></a>
+        <a class="nav-link" th:href="@{/cart}">Cart <i class="bi bi-cart"></i></a>
       </li>
       <li>
         <span sec:authorize="isAuthenticated()" class="navbar-text font-weight-bolder"  th:text="${#authentication.getPrincipal().getFirstName()}"></span>
